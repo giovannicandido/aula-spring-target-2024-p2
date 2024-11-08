@@ -24,16 +24,22 @@ public class EmailSendService {
 
 
     public void sendEmail(String to, String subject, FinalizacaoAtendimento finalizacaoAtendimento) {
+
         String body = getEmailMessage(finalizacaoAtendimento);
         log.info("Sending email to " + to);
         log.info("Subject: " + subject);
         log.info("Body: " + body);
+        if(emailProperties.getSimulate()) {
+            log.info("Email enviado com simulacao");
+            return;
+        }
 
         Properties prop = new Properties();
         prop.put("mail.smtp.auth", true);
         prop.put("mail.smtp.starttls.enable", emailProperties.getSsl());
         prop.put("mail.smtp.host", emailProperties.getHost());
         prop.put("mail.smtp.port", emailProperties.getPort());
+
 
 
         Session session = Session.getInstance(prop, new Authenticator() {

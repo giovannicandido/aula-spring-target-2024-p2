@@ -16,4 +16,5 @@ public class EmailProperties {
     private String password;
     private Boolean ssl;
     private String from;
+    private Boolean simulate = false;
 }
